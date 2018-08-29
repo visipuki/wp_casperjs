@@ -58,14 +58,17 @@ function bulkEditPages (casper, numOfPages) {
 
 exports.createPages = function (casper) {
 	casper.echo('Create pages...');
-	casper.thenClick('a.add-new-h2');
+	casper.click('a.page-title-action');
 	casper.then(function () {
 		// edit Title/text column
 		var name = common.getRandomWord();
-		var text = gen_text.getRandomTextWordsTags(this, 'textarea#content', 150, 500);
-		this.fill('form#post', {
+		var text = gen_text.getRandomTextWords(150, 500);
+        casper.waitForSelector('iframe', function() {
+            casper.withFrame(0, function() {
+                this.sendKeys('#tinymce', text)});
+        });
+		casper.fill('form#post', {
 			'post_title': name
-	//		'content': text
 		}, false);
 		// edit Publish group
 
@@ -73,17 +76,15 @@ exports.createPages = function (casper) {
 
 		// edit Page attributes
 		common.fillSelect(this, 'select#parent_id');
-		common.fillSelect(this, 'select#page_template');
 		var numOfPages = exports.countPages(this);
 		var order = common.getRandomInt(0, numOfPages+1);
-		this.fill('form#post', {'menu_order': order}, false);
+		casper.fill('form#post', {
+            'menu_order': order
+        }, false);
 
-		// apply changings	
+		// apply changes
 		this.thenClick('input#publish', function () {
 			this.waitForSelector('div#message');
-		});	
-		this.then(function () {
-			this.clickLabel('All Pages', 'a');
 		});	
 	});
 }
@@ -121,7 +122,16 @@ exports.fullEditPages = function (casper) {
 		casper.thenClick(link, function () {
 // edit Title/text column
 			var name = common.getRandomWord();
-			var text = gen_text.getRandomTextWordsTags(this, 'textarea#content', 150, 500);
+            var text = gen_text.getRandomTextWords(150, 500);
+            casper.waitForSelector('iframe', function() {
+                casper.withFrame(0, function() {
+                    this.sendKeys(
+                        '#tinymce',
+                        text,
+                        {reset: true, keepFocus: true}
+                    )
+                });
+            });
 			casper.fill('form#post', {
 				'post_title': name
 			}, false);

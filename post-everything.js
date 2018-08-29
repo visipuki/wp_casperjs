@@ -200,7 +200,8 @@ function editPosts(casper, numOfPosts, allTags) {
 }
 
 exports.createPosts = function (casper, allTags) {
-	casper.clickLabel('Add New', 'a');
+	casper.echo('Create post...');
+	casper.click('a.page-title-action');
 	casper.then(function () {
 	// edit Title/text column
 		var name = common.getRandomWord();

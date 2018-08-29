@@ -103,8 +103,7 @@ exports.openDashboard = function (casper) {
     casper.click('li#menu-dashboard > ul.wp-submenu a');
     casper.waitFor(function check_dash() {
         return this.evaluate(function () {
-            return document.querySelectorAll('div.wrap > h2')[0].innerHTML === 'Dashboard';
+            return document.querySelectorAll('div.wrap > h1')[0].innerHTML === 'Dashboard';
         });
     });
-//    casper.waitForSelectorTextChange('div.wrap > h2', null, function () {}, 5000);
 }
