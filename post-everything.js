@@ -205,8 +205,10 @@ exports.createPosts = function (casper, allTags) {
 	// edit Title/text column
 		var name = common.getRandomWord();
 		var text = gen_text.getRandomTextWords(150, 500);
-        casper.withFrame(0, function() {
-            this.sendKeys('#tinymce', text)});
+        casper.waitForSelector('iframe', function() {
+            casper.withFrame(0, function() {
+                this.sendKeys('#tinymce', text)});
+        });
 		casper.fill('form#post', {
 			'post_title': name
 		}, false);
@@ -296,7 +298,16 @@ exports.fullEditPosts = function (casper, allTags) {
 
 // edit Title/text column
 			var name = common.getRandomWord();
-			gen_text.getRandomTextWordsTags(casper, 'form#post textarea#content', 50, 250);
+            var text = gen_text.getRandomTextWords(150, 500);
+            casper.waitForSelector('iframe', function() {
+                casper.withFrame(0, function() {
+                    this.sendKeys(
+                        '#tinymce',
+                        text,
+                        {reset: true, keepFocus: true}
+                    )
+                });
+            });
 			casper.fill('form#post', {
 				'post_title': name
 			}, false);
