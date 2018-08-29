@@ -1,0 +1,62 @@
+ACT:
+    openDashboard: ADMIN_DASHBOARD
+ADMIN_DASHBOARD:
+    logoutUpBar: AUTH
+    openCategories: CATEGORIES
+    openComments: COMMENTS
+    openLibrary: MEDIA
+    openPages: PAGES
+    openTags: TAGS
+AUTH:
+    openHost: UNAUTH_HOME
+CATEGORIES:
+    bulkActionCategories: ACT
+    createCategories: ACT
+    deleteCategories: ACT
+    editCategories: ACT
+    quickEditCategories: ACT
+COMMENTS:
+    aproveOrUnaproveComments: ACT
+    bulkComments: ACT
+    deleteComments: ACT
+    quickEditComments: ACT
+    replyComments: ACT
+    spamComments: ACT
+GET_TAGS:
+    openPosts: POST
+MEDIA:
+    bulkMedia: ACT
+    deleteMedia: ACT
+    editMedia: ACT
+    uploadBrowser: ACT
+    uploadMultiFile: ACT
+PAGES:
+    bulkActionPages: ACT
+    createPages: ACT
+    deletePages: ACT
+    fullEditPages: ACT
+    quickEditPages: ACT
+POST:
+    bulkActionPosts: ACT
+    createPosts: ACT
+    deletePosts: ACT
+    fullEditPosts: ACT
+    quickEditPosts: ACT
+POST_VIEW:
+    comment: UNAUTH_HOME
+    openHome: UNAUTH_HOME
+TAGS:
+    bulkActionTags: ACT
+    createTag: ACT
+    deleteTag: ACT
+    editTag: ACT
+    getAllTags: GET_TAGS
+    quickEditTag: ACT
+UNAUTH_HOME:
+    listPostsByArchive: POST_VIEW
+    listPostsByCategory: POST_VIEW
+    listPostsByFrontPage: POST_VIEW
+    listPostsByTag: POST_VIEW
+    login invalid_uname invalid_pass: AUTH
+    login {username} {password}: ADMIN_DASHBOARD
+    search: POST_VIEW
