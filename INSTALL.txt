@@ -1,0 +1,16 @@
+#install phantom
+wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+tar xf phantomjs-2.1.1-linux-x86_64.tar.bz2
+sudo cp phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/
+sudo apt-get install libfontconfig1
+
+#install casperjs
+sudo apt install gnupg2
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+npm install -g casperjs
+
+#remove wp SPAM filter
+add 'add_filter('comment_flood_filter', '__return_false');' to theme functions.php file.
+/opt/bitnami/apps/wordpress/htdocs/wp-content/themes/twentyseventeen/functions.php
+https://frique.me/blog/disabling-wordpress-comment-flood-prevention/
