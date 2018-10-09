@@ -60,10 +60,10 @@ exports.aproveOrUnaproveComments = function (casper) {
 
 		var link = casper.evaluate(function (i) {
 			var id = document.querySelectorAll('tbody#the-comment-list tr')[i].getAttribute('id');
-			if (document.querySelectorAll('tr#'+ id +' a.vim-a')[0].offsetParent === null)
-				return 'tr#'+id+' a[title="Unapprove this comment"]';
+			if (document.querySelectorAll('tr#' + id + ' a.vim-a')[0].offsetParent === null)
+				return 'tr#'+id+' .unapprove a';
 			else 
-				return 'tr#'+id+' a[title="Approve this comment"]';
+				return 'tr#'+id+' .approve a';
 		}, idx);
 		
 		casper.thenClick(link)
@@ -101,7 +101,7 @@ exports.quickEditComments = function (casper) {
 				'newcomment_author_url': website,
 				'replycontent': text
 			}, false);
-			this.click('tr#replyrow p.submit a[class="save button-primary alignright"]');
+			this.click('tr#replyrow #savebtn');
 			this.waitFor(function () {
 				return this.evaluate(function () {
 					return document.querySelector('tr#replyrow').offsetParent === null;
@@ -174,7 +174,7 @@ exports.replyComments = function (casper) {
 				'replycontent': text
 			}, false);
 
-			this.click('tr#replyrow p.submit a[class="save button-primary alignright"]');
+			this.click('tr#replyrow div.submit a[class="save button button-primary alignright"]');
 			this.waitFor(function () {
 				return this.evaluate(function () {
 					return document.querySelector('tr#replyrow').offsetParent === null;
