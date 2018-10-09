@@ -35,7 +35,8 @@ exports.showMedia = function (casper, num) {
 
 exports.uploadBrowser = function (casper) {
 	// go to add media
-	casper.thenClick('a.add-new-h2');
+    casper.echo('Uploading media...');
+	casper.click('a.page-title-action');
 	casper.then(function () {
 		var res = this.evaluate(function () {
 			if (document.querySelectorAll('p.upload-flash-bypass a')[0].innerHTML === 'browser uploader') {
@@ -61,7 +62,7 @@ exports.uploadBrowser = function (casper) {
 
 exports.uploadMultiFile = function (casper) {
 	// go to add media
-	casper.thenClick('a.add-new-h2');
+	casper.click('a.page-title-action');
 	casper.then(function () {
 		var res = this.evaluate(function () {
 			if (document.querySelectorAll('p[class="upload-html-bypass hide-if-no-js"] a')[0].innerHTML === "Switch to the multi-file uploader") {
@@ -75,8 +76,8 @@ exports.uploadMultiFile = function (casper) {
 	});
 	casper.then(function () {
 		var file = config.getMediaPath() + common.getRandomMedia();
-		this.fillSelectors('form#file-form', {
-			'input[multiple="multiple"]': file
+		this.fillSelectors('div.moxie-shim', {
+			'input[type="file"]': file
 		}, false);
 	});
 
@@ -148,8 +149,8 @@ exports.bulkMedia = function (casper) {
 			document.getElementsByName('action')[0].selectedIndex = i;
 		}, op);
 // click apply
-		casper.thenClick('div[class="tablenav top"] input#doaction');
-		casper.waitForSelectorTextChange('html', null, null, 1500);
+		casper.thenClick('div.tablenav.top input#doaction');
+		casper.waitForSelectorTextChange('html', null, null, 5000);
 		return op;
 	}
 }
@@ -172,4 +173,7 @@ exports.deleteMedia = function (casper, numOfMedias) {
 
 exports.openLibrary = function (casper) {
 	casper.thenClick('li#menu-media a.wp-first-item');
+    if (! casper.exists('a.view-list.current')) {
+        casper.thenClick('a.view-list'); 
+    }
 }

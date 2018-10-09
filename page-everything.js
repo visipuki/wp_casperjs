@@ -116,7 +116,7 @@ exports.fullEditPages = function (casper) {
 
 		var link = casper.evaluate(function (i) {
 			var id = document.querySelectorAll('tbody#the-list tr')[i].getAttribute('id');
-			return 'tr#'+id+' a[title="Edit this item"]';
+			return 'tr#'+id+' .edit a';
 		}, idx);
 		
 		casper.thenClick(link, function () {
@@ -137,7 +137,6 @@ exports.fullEditPages = function (casper) {
 			}, false);
 // edit Page attributes
 			common.fillSelect(casper, 'select#parent_id');
-			common.fillSelect(casper, 'select#page_template');
 			var order = common.getRandomInt(0, numOfPages+1);
 			casper.fill('form#post', {'menu_order': order}, false);
 
@@ -146,7 +145,7 @@ exports.fullEditPages = function (casper) {
 				this.waitForSelector('div#message');
 			});	
 			casper.then(function () {
-				this.clickLabel('All Pages', 'a');
+                this.clickLabel('All Pages', 'a');
 			});	
 		});
 	}
@@ -182,7 +181,7 @@ exports.quickEditPages = function (casper) {
 			common.fillSelect(casper, 'form#posts-filter select[name="_status"]');
 
 // apply changings			
-			casper.thenClick('a[class="button-primary save alignright"]');
+			casper.thenClick('button[class="button button-primary save alignright"]');
 // if ajax-response changes DOM this works			
 			casper.waitForSelectorTextChange('html', null, null, 1500);
 		});

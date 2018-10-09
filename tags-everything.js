@@ -116,7 +116,7 @@ exports.editTag = function (casper) {
 				'description': desc
 			},false);
 
-			casper.thenClick('p.submit input');
+			casper.thenClick('div.edit-tag-actions input');
 		});			
 	}	
 }

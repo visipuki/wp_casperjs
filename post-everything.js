@@ -286,6 +286,7 @@ exports.createPosts = function (casper, allTags) {
 exports.fullEditPosts = function (casper, allTags) {
 	casper.echo('Full edit posts...');
 	var numOfPosts = exports.countPosts(casper);
+    exports.showPosts(casper, numOfPosts);
 	if (numOfPosts >= 1) {
 		var idx = common.getRandomInt(0, numOfPosts);
 		casper.echo(utils.format('%d(%d)', idx+1, numOfPosts));
@@ -379,13 +380,16 @@ exports.fullEditPosts = function (casper, allTags) {
 			casper.thenClick('input#publish', function () {
 				this.waitForSelector('div#message');
 			});	
-			casper.thenClick('a[class="wp-first-item current"]');	
+			casper.then(function () {
+                this.clickLabel('All Posts', 'a');
+			});	
 		});
 	}
 }
 
 exports.quickEditPosts = function (casper, allTags) {
 	casper.echo('Quick edit posts...');
+    exports.showPosts(casper, numOfPosts);
 	var numOfPosts = exports.countPosts(casper);
 	if (numOfPosts >= 1) {
 		var idx = common.getRandomInt(0,numOfPosts);
@@ -483,6 +487,7 @@ exports.quickEditPosts = function (casper, allTags) {
 exports.bulkActionPosts = function (casper, allTags) {
 	casper.echo('Bulk actions on posts...');
 	var numOfPosts = exports.countPosts(casper);
+    exports.showPosts(casper, numOfPosts);
 	if (numOfPosts >= 1) {
 // lets choose elements
 		if (common.getRandomInt(0, numOfPosts*numOfPosts) === 0) { // clcik on all records (prob = 1/(N^2) )
