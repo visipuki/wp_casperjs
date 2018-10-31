@@ -490,19 +490,14 @@ exports.bulkActionPosts = function (casper, allTags) {
     exports.showPosts(casper, numOfPosts);
 	if (numOfPosts >= 1) {
 // lets choose elements
-		if (common.getRandomInt(0, numOfPosts*numOfPosts) === 0) { // clcik on all records (prob = 1/(N^2) )
-			casper.click('#cb-select-all-1');
-			casper.echo("All elements selected.");
-		} else { // clicking on each element (prob = 1/N for each element)
-			for  (var i = 0; i < numOfPosts; i++) {
-				if (common.getRandomInt(0, numOfPosts/2) === 0) {
-					casper.evaluate(function (i) {
-						document.querySelectorAll(
-							'tbody#the-list th.check-column input'
-						)[i].click();
-					},i);
-					casper.echo(utils.format('#%d is clicked', i+1));
-				}
+		for  (var i = 0; i < numOfPosts; i++) {
+			if (common.getRandomInt(0, numOfPosts/2) === 0) {
+				casper.evaluate(function (i) {
+					document.querySelectorAll(
+						'tbody#the-list th.check-column input'
+					)[i].click();
+				},i);
+				casper.echo(utils.format('#%d is clicked', i+1));
 			}
 		}
 // now lets choose bulk action

@@ -154,17 +154,12 @@ exports.bulkActionTags = function (casper) {
 	if (numOfTags >= 1) {
 		casper.then(function () {
 			// lets choose elements
-			if (common.getRandomInt(0, numOfTags*numOfTags) === 0) { // clcik on all records (prob = 1/(N^2) )
-				this.click('#cb-select-all-1');
-				this.echo("All elements selected.");
-			} else { // clicking on each element (prob = 1/N for each element)
-				for  (var i = 0; i < numOfTags; i++) {
-					if (common.getRandomInt(0, numOfTags) === 0) {
-						this.evaluate(function (i) {
-							document.querySelectorAll('tbody#the-list th.check-column input')[i].click();
-						},i);
-						this.echo(utils.format('#%d is clicked', i+1));
-					}
+			for  (var i = 0; i < numOfTags; i++) {
+				if (common.getRandomInt(0, numOfTags) === 0) {
+					this.evaluate(function (i) {
+						document.querySelectorAll('tbody#the-list th.check-column input')[i].click();
+					},i);
+					this.echo(utils.format('#%d is clicked', i+1));
 				}
 			}
 			// now lets choose bulk action
